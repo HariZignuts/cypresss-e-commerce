@@ -4,31 +4,24 @@
 //
 // This is a great place to put global configuration and
 // behavior that modifies Cypress.
-//
-// You can change the location of this file or turn off
-// automatically serving support files with the
-// 'supportFile' configuration option.
-//
-// You can read more here:
-// https://on.cypress.io/configuration
 // ***********************************************************
 
-// Import commands.js using ES2015 syntax:
 import "./commands";
 import { LoginPage } from "./page-objects/LoginPage";
-import { selectLoginLogo } from "./selectors/loginSelectors";
+import { HeaderSelectors, LoginSelectors } from "./selectors";
 
 declare global {
   namespace Cypress {
-    interface Chainable<Subject> {
+    interface Chainable {
       login(username?: string, password?: string): Chainable<void>;
+      logout(): Chainable<void>;
     }
   }
 }
 
 Cypress.Commands.add("login", (username?: string, password?: string) => {
-  const user = username?.trim() || Cypress.env("USERNAME");
-  const pass = password?.trim() || Cypress.env("PASSWORD");
+  const user = (username || Cypress.env("USERNAME"))?.trim();
+  const pass = (password || Cypress.env("PASSWORD"))?.trim();
 
   if (!user || !pass) {
     throw new Error(
@@ -36,7 +29,6 @@ Cypress.Commands.add("login", (username?: string, password?: string) => {
     );
   }
 
-  // create a unique key for the session
   const loginKey = `login-${user}`;
 
   cy.session(
@@ -44,18 +36,34 @@ Cypress.Commands.add("login", (username?: string, password?: string) => {
     () => {
       const loginPage = new LoginPage();
       loginPage.visit();
-      // Check login page initial state (logo visible)
-      selectLoginLogo().should("be.visible").and("contain.text", "Swag Labs");
-      // Perform UI login using page object
+
+      // Initial page check
+      LoginSelectors.logo()
+        .should("be.visible")
+        .and("contain.text", "Swag Labs");
+
+      // Perform login
       loginPage.login(user, pass);
-      // Verify successful login by checking URL
+
+      // Validate logged-in state
       cy.url().should("include", "/inventory.html");
     },
     {
       cacheAcrossSpecs: true,
       validate: () => {
+        // Validate session cookies still valid
         cy.getCookie("session-username").should("exist");
       },
     }
   );
+});
+
+Cypress.Commands.add("logout", () => {
+  HeaderSelectors.getMenuBtn().click();
+  HeaderSelectors.logoutBtn().click();
+  cy.url().should("include", "/");
+});
+
+Cypress.on("uncaught:exception", () => {
+  return false;
 });

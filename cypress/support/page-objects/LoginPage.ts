@@ -1,8 +1,4 @@
-import {
-  selectLoginButton,
-  selectPasswordInput,
-  selectUsernameInput,
-} from "../selectors/loginSelectors";
+import { LoginSelectors } from "../selectors";
 
 export class LoginPage {
   visit() {
@@ -11,12 +7,18 @@ export class LoginPage {
   }
 
   fillUsername(username: string) {
-    selectUsernameInput().clear().type(username).should("have.value", username);
+    LoginSelectors.username()
+      .clear()
+      .type(username)
+      .should("have.value", username);
     return this;
   }
 
   fillPassword(password: string) {
-    selectPasswordInput().clear().type(password).should("have.value", password);
+    LoginSelectors.password()
+      .clear()
+      .type(password)
+      .should("have.value", password);
     return this;
   }
 
@@ -27,7 +29,7 @@ export class LoginPage {
   }
 
   submitLogin() {
-    selectLoginButton().click();
+    LoginSelectors.loginBtn().click();
     return this;
   }
 

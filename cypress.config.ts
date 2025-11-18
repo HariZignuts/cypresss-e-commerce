@@ -9,6 +9,7 @@ export default defineConfig({
   },
   e2e: {
     baseUrl: process.env.BASE_URL,
+    supportFile: "cypress/support/e2e.ts",
     viewportWidth: Number(process.env.VIEWPORT_WIDTH) || 1280,
     viewportHeight: Number(process.env.VIEWPORT_HEIGHT) || 800,
     setupNodeEvents(on, config) {
