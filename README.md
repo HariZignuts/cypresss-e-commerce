@@ -147,4 +147,4 @@ cypresss-e-commerce/
 
 ## Author
 
-- Github: @HariZignuts
+- Github: [Hari Malam](https://github.com/HariZignuts)
