@@ -16,8 +16,12 @@
   "license": "ISC",
   "type": "module",
   "devDependencies": {
+    "@faker-js/faker": "^10.1.0",
     "@types/node": "^24.10.1",
     "cypress": "^15.6.0",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3"
   }
 }

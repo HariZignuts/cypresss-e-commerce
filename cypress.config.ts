@@ -1,7 +1,16 @@
 import { defineConfig } from "cypress";
+import * as dotenv from "dotenv";
 
+dotenv.config({ path: "./.env" });
 export default defineConfig({
+  env: {
+    USERNAME: process.env.USERNAME,
+    PASSWORD: process.env.PASSWORD,
+  },
   e2e: {
+    baseUrl: process.env.BASE_URL,
+    viewportWidth: Number(process.env.VIEWPORT_WIDTH) || 1280,
+    viewportHeight: Number(process.env.VIEWPORT_HEIGHT) || 800,
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
