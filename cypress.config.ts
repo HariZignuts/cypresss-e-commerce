@@ -4,8 +4,8 @@ import * as dotenv from "dotenv";
 dotenv.config({ path: "./.env" });
 export default defineConfig({
   env: {
-    USERNAME: process.env.USERNAME,
-    PASSWORD: process.env.PASSWORD,
+    USERNAME: process.env.CYPRESS_USERNAME || process.env.USERNAME,
+    PASSWORD: process.env.CYPRESS_PASSWORD || process.env.PASSWORD,
   },
   e2e: {
     baseUrl: process.env.BASE_URL,

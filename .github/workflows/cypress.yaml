@@ -32,3 +32,9 @@ jobs:
         with:
           install-command: pnpm install
           browser: electron
+        env:
+          CYPRESS_USERNAME: ${{ secrets.USERNAME }}
+          CYPRESS_PASSWORD: ${{ secrets.PASSWORD }}
+          CYPRESS_baseUrl: ${{ secrets.BASE_URL }}
+          VIEWPORT_WIDTH: ${{ secrets.VIEWPORT_WIDTH }}
+          VIEWPORT_HEIGHT: ${{ secrets.VIEWPORT_HEIGHT }}
