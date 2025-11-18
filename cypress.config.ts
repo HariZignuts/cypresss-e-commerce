@@ -8,6 +8,7 @@ export default defineConfig({
     PASSWORD: process.env.CYPRESS_PASSWORD || process.env.PASSWORD,
   },
   e2e: {
+    video: process.env.CYPRESS_VIDEO === "true" || false,
     baseUrl: process.env.BASE_URL,
     supportFile: "cypress/support/e2e.ts",
     viewportWidth: Number(process.env.VIEWPORT_WIDTH) || 1280,

@@ -38,3 +38,13 @@ jobs:
           CYPRESS_baseUrl: ${{ secrets.BASE_URL }}
           VIEWPORT_WIDTH: ${{ secrets.VIEWPORT_WIDTH }}
           VIEWPORT_HEIGHT: ${{ secrets.VIEWPORT_HEIGHT }}
+          CYPRESS_VIDEO: ${{ secrets.CYPRESS_VIDEO }}
+
+      # 5. Upload Videos Artifact
+      - name: Upload Videos
+        # "always()" ensures videos upload even if tests fail
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos
+          path: cypress/videos
