@@ -50,4 +50,8 @@ describe("SauceDemo Purchase Flow", () => {
     // fill in checkout information and complete purchase
     checkoutPage.completeCheckout();
   });
+
+  it("should test check", () => {
+    cy.log("test");
+  });
 });

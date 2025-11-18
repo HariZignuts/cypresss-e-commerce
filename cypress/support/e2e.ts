@@ -7,6 +7,7 @@
 // ***********************************************************
 
 import "./commands";
+import { InventoryPage } from "./page-objects/InventoryPage";
 import { LoginPage } from "./page-objects/LoginPage";
 import { HeaderSelectors, LoginSelectors } from "./selectors";
 
@@ -59,6 +60,8 @@ Cypress.Commands.add("login", (username?: string, password?: string) => {
 });
 
 Cypress.Commands.add("logout", () => {
+  const inventoryPage = new InventoryPage();
+  inventoryPage.visit();
   HeaderSelectors.getMenuBtn().click();
   HeaderSelectors.logoutBtn().click();
   cy.url().should("include", "/");
